@@ -23,7 +23,14 @@ var Page = db.define('page', {
       type: Sequelize.DATE,
       defaultValue: Sequelize.NOW
     }
-});
+},
+
+    {
+        getterMethods: {
+            route: function()  { return "/wiki/" +  this.urlTitle }
+        }
+    }
+);
 
 var User = db.define('user', {
     name: {
