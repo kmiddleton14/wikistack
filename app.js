@@ -22,6 +22,7 @@ app.use(morgan('dev'));
 
 app.use(express.static(path.join(__dirname,'./public')));
 
+app.use('/', routes);
 app.use('/wiki', routes);
 
 // var server = app.listen(1111, function(){

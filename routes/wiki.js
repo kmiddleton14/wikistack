@@ -12,7 +12,14 @@ module.exports = router;
 
 
 router.get('/', function(req, res, next) {
-  res.redirect('/');
+ 
+  var allPages = [];
+  Page.findAll().then(function(arrPage){
+  	  res.render('index', {
+  		pages: arrPage
+ 	 });
+  });
+
 });
 
 router.post('/', function(req, res, next) {
