@@ -17,16 +17,16 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
 
-  // STUDENT ASSIGNMENT:
-  // add definitions for `title` and `content`
+	//Page.hooks.beforeValidate();
 
-  var page = promisifiedPageBuild({
-    title: req.body.title,
-    content: req.body.content
-  }).then(page.save)
-  .then(function(){
-  	res.redirect('/');
-  });
+   Page.create({
+	    title: req.body.title,
+	    content: req.body.content
+  	}).then(function(){
+  		res.redirect('/');
+  	});
+
+
 
   // STUDENT ASSIGNMENT:
   // make sure we only redirect *after* our save is complete!
@@ -41,13 +41,5 @@ router.get( '/add', function (req, res) {
 });
 
 
-function promisifiedPageBuild(pageObj){
-	return new Promise(function(resolve, reject){
-		Page.build(pageObj, function(err, obj){
-			if(err) reject(err);
-			else resolve(obj);
-		})
-	})
-};
 
 
