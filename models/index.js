@@ -27,7 +27,7 @@ var Page = db.define('page', {
 
     {
         getterMethods: {
-            route: function(page)  { return "/wiki/" +  page.urlTitle }
+            route: function()  { return "/wiki/" +  this.urlTitle }
         },
         hooks: {
             beforeValidate: function(page) { 

@@ -22,22 +22,33 @@ router.post('/', function(req, res, next) {
    Page.create({
 	    title: req.body.title,
 	    content: req.body.content
-  	}).then(function(){
-  		res.redirect('/');
-  	});
-
-
-
-  // STUDENT ASSIGNMENT:
-  // make sure we only redirect *after* our save is complete!
-  // note: `.save` returns a promise or it can take a callback.
-  //page.save();
-  // -> after save -> res.redirect('/');
+  	}).then(function(page){
+  		res.redirect(page.route);
+  	}).catch(next);
 });
 
 
-router.get( '/add', function (req, res) {
+router.get( '/add', function (req, res, next) {
   res.render('addpage');
+});
+
+
+router.get( '/:urlTitle', function (req, res, next) {
+
+  Page.findOne({ 
+    where: { 
+      urlTitle: req.params.urlTitle 
+    } 
+  })
+  .then(function(foundPage){
+    res.render('wikipage', {
+    	title: foundPage.title,
+    	urlTitle: foundPage.urlTitle,
+		content: foundPage.content
+
+    });
+  })
+  .catch(next);
 });
 
 
